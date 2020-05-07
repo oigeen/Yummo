@@ -1,5 +1,7 @@
 import axios from "axios";
 
+var baseUrl = process.env.VUE_APP_YUMMO_SPOONACULAR_RELAY_API_ROOT;
+
 export default {
   getRecipes: async function(selectedIngredientNames) {
     if (
@@ -12,12 +14,9 @@ export default {
     this.recipes = [];
 
     //var baseUrl = "https://api.edamam.com/search";
-    var baseUrl = "http://localhost:3000/api/search";
-    var ingredients = "";
-    //var apiKey = process.env.VUE_APP_SPOONACULAR_API_KEY;
-    //var appId = process.env.VUE_APP_APP_ID;
-    //this variable sets how many recipes will be in the response
-    //var to = "50";
+        //var to = "50";
+
+    var ingredients = "";   
 
     selectedIngredientNames.forEach((ingredient) => {
       ingredients += ingredient + ",";
@@ -27,12 +26,11 @@ export default {
     var queryString =
       baseUrl +
       // "?q=" +
-      "?ingredients=" +
+      "/search?ingredients=" +
       ingredients;
     // "&app_key=" +
     // apiKey +
     // "&app_id=" +
-    //"&apiKey=" +
     //apiKey
     // "&to=" +
     // to;
@@ -44,10 +42,7 @@ export default {
       alert("Invalid recipe Id");
       return;
     }
-
-    var baseUrl = "http://localhost:3000/api/getRecipe";
-
-    var queryString = baseUrl + "?recipeId=" + id;
+    var queryString = baseUrl + "/getRecipe?recipeId=" + id;
     return await axios.get(queryString);
   }
 };
